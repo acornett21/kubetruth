@@ -1,7 +1,7 @@
-FROM ruby:3.0-alpine AS base
-
 ARG APP_USER_UID=65532
 ARG APP_USER_GID=65532
+
+FROM ruby:3.0-alpine AS base
 
 ENV APP_DIR="/srv/app" \
     BUNDLE_PATH="/srv/bundler" \
@@ -53,6 +53,9 @@ CMD ["app"]
 
 
 FROM base AS release
+
+ARG APP_USER_UID
+ARG APP_USER_GID
 
 RUN apk add --no-cache \
     --virtual app \
